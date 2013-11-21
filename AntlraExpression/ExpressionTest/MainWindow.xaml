@@ -1,0 +1,16 @@
+﻿<Window x:Class="ExpressionTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="391" Width="629">
+    <Grid Width="576" Height="314">
+        <Label Content="1.输入表达式：" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="label1" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Right" Margin="0,46,321,0" Name="ExpressionBox" VerticalAlignment="Top" Width="243" TextChanged="textBox1_TextChanged" />
+        <Label Content="2.增加允许变量：" Height="28" HorizontalAlignment="Left" Margin="12,78,0,0" Name="label2" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Right" Margin="0,80,408,0" Name="VarBox" VerticalAlignment="Top" Width="65" />
+        <Button Content="增加" Height="23" HorizontalAlignment="Left" Margin="180,80,0,0" Name="button1" VerticalAlignment="Top" Width="75" Click="button1_Click" />
+        <Button Content="清空" Height="23" HorizontalAlignment="Right" Margin="0,13,321,0" Name="button2" VerticalAlignment="Top" Width="75" Click="button2_Click" />
+        <ListBox Height="186" HorizontalAlignment="Left" Margin="12,112,0,0" Name="VarslistBox" VerticalAlignment="Top" Width="243" SelectionChanged="listBox1_SelectionChanged" />
+        <ListBox Height="286" HorizontalAlignment="Left" Margin="352,12,0,0" Name="listBox2" VerticalAlignment="Top" Width="212" SelectionChanged="listBox2_SelectionChanged" />
+        <Button Content="3.解析" Height="23" HorizontalAlignment="Left" Margin="271,132,0,0" Name="button3" VerticalAlignment="Top" Width="75" Click="button3_Click" />
+    </Grid>
+</Window>
