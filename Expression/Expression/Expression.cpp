@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "ExprEvalImpl.h"
 #include <iostream>
+
 using namespace BIMCloud::NativeServices;
 using namespace std;
 
@@ -13,13 +14,18 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		ExprEvalImpl test;
 		test.Init();
-		test.Eval(_T("x = 5")); 
-		test.Eval(_T("y = 2*x"));
-		double result = test.Eval(_T("iif((x==5 ) | (x == 1), y, 0) + 5"));
-		cout<< result;
+		double result0 = test.Eval(_T("x = ZGH")); 
+		//test.Eval(_T("y = 2*x"));
+		double result1   = test.Eval(_T("iif((5==5 ) | (5 == 1), 10, 0) + 5"));
+		//double result2 = test.Eval(_T("iif(5==5  | 5 == 1, 10, 0) + 5"));
+
+		cout << result0 << "\n";
+		cout << result1 << "\n";
 	}
 	catch (LPCTSTR e)
 	{
+		//CString str = _T("ÖÐÎÄ");
+		//cout << str;
 	}
 	return 0;
 }
