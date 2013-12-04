@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntlraExpression", "AntlraE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionTest", "ExpressionTest\ExpressionTest.csproj", "{A7929354-2C21-40A4-A9CE-BE2DBE11C051}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCWatchcer", "GCWatchcer\GCWatchcer.csproj", "{8DB2E03B-2DB3-46CB-893E-13A7045DC2BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{A7929354-2C21-40A4-A9CE-BE2DBE11C051}.Release|Mixed Platforms.Build.0 = Release|x86
 		{A7929354-2C21-40A4-A9CE-BE2DBE11C051}.Release|x86.ActiveCfg = Release|x86
 		{A7929354-2C21-40A4-A9CE-BE2DBE11C051}.Release|x86.Build.0 = Release|x86
+		{8DB2E03B-2DB3-46CB-893E-13A7045DC2BE}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{8DB2E03B-2DB3-46CB-893E-13A7045DC2BE}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{8DB2E03B-2DB3-46CB-893E-13A7045DC2BE}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{8DB2E03B-2DB3-46CB-893E-13A7045DC2BE}.Debug|x86.ActiveCfg = Debug|x86
+		{8DB2E03B-2DB3-46CB-893E-13A7045DC2BE}.Debug|x86.Build.0 = Debug|x86
+		{8DB2E03B-2DB3-46CB-893E-13A7045DC2BE}.Release|Any CPU.ActiveCfg = Release|x86
+		{8DB2E03B-2DB3-46CB-893E-13A7045DC2BE}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{8DB2E03B-2DB3-46CB-893E-13A7045DC2BE}.Release|Mixed Platforms.Build.0 = Release|x86
+		{8DB2E03B-2DB3-46CB-893E-13A7045DC2BE}.Release|x86.ActiveCfg = Release|x86
+		{8DB2E03B-2DB3-46CB-893E-13A7045DC2BE}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
