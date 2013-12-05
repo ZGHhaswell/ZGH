@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCWatchcer", "GCWatchcer\GC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelProcessTest", "ExcelProcessTest\ExcelProcessTest.csproj", "{BE531E28-5516-41D5-9ED8-6E7157EA2D69}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathTest", "MathTest\MathTest.csproj", "{E9FE67B0-60F6-4A6D-BE69-ED07C76D3EF9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,16 @@ Global
 		{BE531E28-5516-41D5-9ED8-6E7157EA2D69}.Release|Mixed Platforms.Build.0 = Release|x86
 		{BE531E28-5516-41D5-9ED8-6E7157EA2D69}.Release|x86.ActiveCfg = Release|x86
 		{BE531E28-5516-41D5-9ED8-6E7157EA2D69}.Release|x86.Build.0 = Release|x86
+		{E9FE67B0-60F6-4A6D-BE69-ED07C76D3EF9}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{E9FE67B0-60F6-4A6D-BE69-ED07C76D3EF9}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{E9FE67B0-60F6-4A6D-BE69-ED07C76D3EF9}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{E9FE67B0-60F6-4A6D-BE69-ED07C76D3EF9}.Debug|x86.ActiveCfg = Debug|x86
+		{E9FE67B0-60F6-4A6D-BE69-ED07C76D3EF9}.Debug|x86.Build.0 = Debug|x86
+		{E9FE67B0-60F6-4A6D-BE69-ED07C76D3EF9}.Release|Any CPU.ActiveCfg = Release|x86
+		{E9FE67B0-60F6-4A6D-BE69-ED07C76D3EF9}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{E9FE67B0-60F6-4A6D-BE69-ED07C76D3EF9}.Release|Mixed Platforms.Build.0 = Release|x86
+		{E9FE67B0-60F6-4A6D-BE69-ED07C76D3EF9}.Release|x86.ActiveCfg = Release|x86
+		{E9FE67B0-60F6-4A6D-BE69-ED07C76D3EF9}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
