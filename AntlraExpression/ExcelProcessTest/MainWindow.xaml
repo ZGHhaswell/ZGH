@@ -1,0 +1,35 @@
+﻿<Window x:Class="ExcelProcessTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="388" Width="622" xmlns:c1="http://schemas.componentone.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>            
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+        <c1:C1FlexGrid 
+            AutoGenerateColumns="False"
+            AllowAddNew="True"
+            ItemsSource="{Binding CalculationItems}"
+            Grid.Row="0" Name="c1FlexGrid1">
+            <c1:C1FlexGrid.Columns>
+                <c1:Column Width="50*"  Binding="{Binding CalculationName}"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" HeaderHorizontalAlignment="Center"
+                           Header="序号">
+                </c1:Column>
+                <c1:Column Width="50*"  Binding="{Binding CalculationResult}"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" HeaderHorizontalAlignment="Center"
+                           Header="结果">
+                </c1:Column>
+            </c1:C1FlexGrid.Columns>
+        </c1:C1FlexGrid>
+            
+        <Button Name="button_Write"
+                
+                Content="WriteToExcel"
+                Grid.Row="1"
+                Width="100" 
+                HorizontalAlignment="Left" 
+                Margin="10,0,0,0" Click="button_Write_Click"></Button>
+    </Grid>
+</Window>
