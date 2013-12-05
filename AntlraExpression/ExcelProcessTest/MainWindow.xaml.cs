@@ -46,8 +46,6 @@ namespace ExcelProcessTest
                 excel.Cells[i+1, 2] = ViewModel.CalculationItems[i].CalculationResult;
             }
 
-
-
             //使Excel可视 
             //excel.Visible = true;
             var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\demo.xlsx";
