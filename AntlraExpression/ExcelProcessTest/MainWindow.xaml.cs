@@ -11,8 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ExcelProcessTest.Tools;
 
-using CalExcel = Microsoft.Office.Interop.Excel;
 
 namespace ExcelProcessTest
 {
@@ -34,28 +34,8 @@ namespace ExcelProcessTest
 
         private void button_Write_Click(object sender, RoutedEventArgs e)
         {
-            
-            //引用Excel对象 excel.
-            CalExcel.Application excel = new CalExcel.Application();
-            //引用Excel工作簿 
-            excel.Workbooks.Add(true);
 
-            for (int i = 0; i < ViewModel.CalculationItems.Count; i++)
-            {
-                excel.Cells[i+1, 1] = ViewModel.CalculationItems[i].CalculationName;
-                excel.Cells[i+1, 2] = ViewModel.CalculationItems[i].CalculationResult;
-            }
-
-            //使Excel可视 
-            //excel.Visible = true;
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\demo.xlsx";
-            CalExcel.Worksheet xSheet = (CalExcel.Worksheet)excel.ActiveSheet;
-            
-            xSheet.SaveAs(path);
-            xSheet = null;
-
-            excel.Quit();
-            excel = null;
+            ExcelUtils.WriteToExcel(ViewModel.CalculationItems);
         }
     }
 }
