@@ -1,0 +1,23 @@
+﻿<Window x:Class="WpfTest.MethodsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:WpfTest.UserControls"
+        Title="PopWindow" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="298" d:DesignWidth="547" >
+    <Grid >
+        <TabControl>
+            <TabItem Header="清单项目">
+                <controls:QdItemsControl DataContext="{Binding QdItemsViewModel}">
+
+                </controls:QdItemsControl>
+            </TabItem>
+            <TabItem Header="清单指引">
+            </TabItem>
+            <TabItem Header="定额子目">
+            </TabItem>
+            <TabItem Header="工作内容">
+            </TabItem>
+            <TabItem Header="计算规则">
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

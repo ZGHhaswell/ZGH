@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 using ExcelProcessTest.Tools;
 
 
@@ -36,6 +37,7 @@ namespace ExcelProcessTest
         {
 
             ExcelUtils.WriteToExcel(ViewModel.CalculationItems);
+            
         }
     }
 }
