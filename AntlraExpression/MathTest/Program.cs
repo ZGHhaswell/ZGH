@@ -5,17 +5,43 @@ using System.Text;
 
 namespace MathTest
 {
+    public class A : IDisposable
+    {
+        public A A1 { get; set; }
+        public A()
+        {
+            
+        }
+
+        ~A()
+        {
+            Console.WriteLine("destructor!");
+        }
+
+        public void Dispose()
+        {
+            Console.WriteLine("diposed!");
+            GC.SuppressFinalize(this);
+        }
+        
+    }
     class Program
     {
         static void Main(string[] args)
         {
-            double B = 1600;
-            double H = 2100;
-            double H1 = 300;
-            double T = 55;
+            var a = new A();
+            var refa  = new A();
+            a.A1 = refa;
+            //a = null;
+            GC.Collect();
+            Console.ReadKey();
+            refa.Dispose();
+            
+        }
 
-            double degrees = Math.Asin(B * H1 / (Math.Pow(H1, 2)+ 0.25 * Math.Pow(B, 2))) * (Math.Pow(H1, 2) + 0.25 * Math.Pow(B, 2)) / H1 + 2 * H + B;
-            Console.Write(degrees);
+        public static void Call()
+        {
+            
         }
     }
 }
