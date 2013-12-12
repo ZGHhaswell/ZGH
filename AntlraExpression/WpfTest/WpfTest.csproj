@@ -17,7 +17,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -27,7 +27,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -36,6 +36,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BIMCloud.Framework">
+      <HintPath>D:\RAC.Dev\References\BIMCloud\Framework\BIMCloud.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.WPF.4, Version=4.0.20123.282, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
     <Reference Include="C1.WPF.FlexGrid.4, Version=4.0.20123.282, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
     <Reference Include="Microsoft.Practices.Prism">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Prism4.1\Bin\Desktop\Microsoft.Practices.Prism.dll</HintPath>
@@ -75,9 +79,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\ItemTreeNode.cs" />
     <Compile Include="UserControls\QdItemsControl.xaml.cs">
       <DependentUpon>QdItemsControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\DataProvider.cs" />
+    <Compile Include="Utils\SelectableTreeNode.cs" />
     <Compile Include="ViewModels\MethodsWindowViewModel.cs" />
     <Compile Include="ViewModels\QDItemsViewModel.cs" />
     <Page Include="MainWindow.xaml">
@@ -130,8 +137,21 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Utils\" />
+    <Resource Include="Resources\Computer.png" />
+    <Resource Include="Resources\Desktop.png" />
+    <Resource Include="Resources\DVDDrive.png" />
+    <Resource Include="Resources\Folder.png" />
+    <Resource Include="Resources\LocalDisk.png" />
+    <Resource Include="Resources\manager.png" />
+    <Resource Include="Resources\Network.png" />
+    <Resource Include="Resources\PublicDownloads.png" />
+    <Resource Include="Resources\PublicMusic.png" />
+    <Resource Include="Resources\PublicPictures.png" />
+    <Resource Include="Resources\PublicVideos.png" />
+    <Resource Include="Resources\RecycleBin.png" />
+    <Resource Include="Resources\User.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

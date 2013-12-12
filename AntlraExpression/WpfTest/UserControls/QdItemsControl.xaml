@@ -6,41 +6,41 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"  
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" xmlns:c1="http://schemas.componentone.com/winfx/2006/xaml">
+    
+    
     <Grid>
         <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <TreeView Grid.Row="1" ItemsSource="{Binding ComponentTypes, Mode=OneWay}" BorderThickness="0.5" BorderBrush="Black" Margin="5">
-            <TreeView.ItemTemplate>
+        <c1:C1TreeView Grid.Column="0" ItemsSource="{Binding ItemsList}" Margin="10"
+                       x:Name="treeView"  ShowLines="True">
+            
+            <c1:C1TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Children, Mode=OneWay}">
-                    <TextBlock Text="{Binding ComponentTypeName, Mode=OneWay}"></TextBlock>
-                    <HierarchicalDataTemplate.ItemTemplate>
-                        <HierarchicalDataTemplate ItemsSource="{Binding Children, Mode=OneWay}">
-                            <TextBlock Text="{Binding ComponentName, Mode=TwoWay}"></TextBlock>
-                        </HierarchicalDataTemplate>
-                    </HierarchicalDataTemplate.ItemTemplate>
+                    <TextBlock  VerticalAlignment="Center"  Text="{Binding Name, Mode=OneWay}"></TextBlock>
+                    
                 </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
-            <TreeView.Resources>
-                <Style TargetType="TreeViewItem">
+            </c1:C1TreeView.ItemTemplate>
+            <c1:C1TreeView.Resources>
+                <Style TargetType="c1:C1TreeViewItem">
                     <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
                     <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded, Mode=TwoWay}" />
                     <Setter Property="FontWeight" Value="Normal" />
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="FontWeight" Value="Bold" />
-                            <Setter Property="Background" Value="Blue" />
+                            <!--<Setter Property="Background" Value="Blue" />-->
                         </Trigger>
                     </Style.Triggers>
                 </Style>
-            </TreeView.Resources>
+            </c1:C1TreeView.Resources>
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectedItemChanged">
-                    <i:InvokeCommandAction Command="{Binding SelectedComponentChangedCommand}"/>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction  Command="{Binding SelectCommand}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-        </TreeView>
+        </c1:C1TreeView>
         <Grid Grid.Column ="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
@@ -54,5 +54,46 @@
                 </c1:C1FlexGrid.Columns>
             </c1:C1FlexGrid>
         </Grid>
+        
     </Grid>
 </UserControl>
+
+<!--<UserControl.Resources>
+        <Style TargetType="Image" x:Key="TreeIcon">
+            <Setter Property="Width" Value="14" />
+            <Setter Property="Height" Value="14" />
+        </Style>
+        <Style TargetType="TextBlock" x:Key="TreeText">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Margin" Value="4 0 0 0" />
+        </Style>
+    </UserControl.Resources>-->
+<!--<c1:C1TreeViewItem IsExpanded="True">
+                <c1:C1TreeViewItem.Header>
+                    <Label>
+                        <Label.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Style="{StaticResource TreeIcon}" Source="/Resources/User.png"></Image>
+                                <TextBlock Style="{StaticResource TreeText}" Text="Desktop" />
+                            </StackPanel>
+                        </Label.Content>
+                    </Label>
+                </c1:C1TreeViewItem.Header>
+                <c1:C1TreeViewItem IsExpanded="True">
+                    <c1:C1TreeViewItem.Header>
+                        <Label>
+                            <Label.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Style="{StaticResource TreeIcon}" Source="/Resources/User.png"></Image>
+                                    <TextBlock Style="{StaticResource TreeText}" Text="Desktop" />
+                                </StackPanel>
+                            </Label.Content>
+                        </Label>
+                    </c1:C1TreeViewItem.Header>
+                </c1:C1TreeViewItem>
+            </c1:C1TreeViewItem>-->
+<!--<HierarchicalDataTemplate.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Children, Mode=OneWay}">
+                            <TextBlock  HorizontalAlignment="Center"  VerticalAlignment="Center"   Text="{Binding Name, Mode=TwoWay}"></TextBlock>
+                        </HierarchicalDataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>-->
