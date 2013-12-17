@@ -80,13 +80,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\ItemTreeNode.cs" />
+    <Compile Include="Model\ProjInfoData.cs" />
     <Compile Include="UserControls\QdItemsControl.xaml.cs">
       <DependentUpon>QdItemsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\DataProvider.cs" />
     <Compile Include="Utils\SelectableTreeNode.cs" />
     <Compile Include="ViewModels\MethodsWindowViewModel.cs" />
-    <Compile Include="ViewModels\QDItemsViewModel.cs" />
+    <Compile Include="ViewModels\QdItemsViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -154,6 +155,9 @@
     <Resource Include="Resources\User.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy  "$(ProjectDir)MyDemo.accdb" "$(TargetDir)" /y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

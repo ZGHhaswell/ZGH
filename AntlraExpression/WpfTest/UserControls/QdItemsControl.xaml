@@ -44,15 +44,57 @@
         <Grid Grid.Column ="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="20"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
             </Grid.RowDefinitions>
-            <c1:C1FlexGrid Name="c1FlexGrid1" AutoGenerateColumns="False" >
+            <c1:C1FlexGrid Name="c1FlexGrid1" AutoGenerateColumns="False"
+                           Grid.Row="0"
+                           IsReadOnly="True"
+                           ItemsSource="{Binding SelectedProjInfoList}"
+                           SelectedItem="{Binding SelectedProjInfoItem, Mode=TwoWay}"
+                           SelectionMode="Row"
+                           >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DoubleClick">
+                        <i:InvokeCommandAction  Command="{Binding DoubleClickCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                
                 <c1:C1FlexGrid.Columns>
-                    <c1:Column Header="编号" Width="100"></c1:Column>
-                    <c1:Column Header="项目名称" Width="2*"></c1:Column>
-                    <c1:Column Header="单位" Width="3*"></c1:Column>
+                    <c1:Column Header="编号"  Binding="{Binding NumIndex}" Width="100" ></c1:Column>
+                    <c1:Column Header="项目名称" Binding="{Binding ProjInfo}" Width="2*"></c1:Column>
+                    <c1:Column Header="单位" Binding="{Binding Unit}"  Width="3*"></c1:Column>
                 </c1:C1FlexGrid.Columns>
             </c1:C1FlexGrid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="查找:    编号(1)" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                <TextBox Name="conIndex" Grid.Column="1" Width="100" Height="20"   >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction  Command="{Binding SearchIndexCommand}" 
+                                                    CommandParameter="{Binding Path=Text, ElementName=conIndex}"
+                                                    />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+                <Label Content="名称(2)" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                <TextBox Name="conText" Grid.Column="3" Width="100" Height="20">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction  Command="{Binding SearchTextCommand}" 
+                                                    CommandParameter="{Binding Path=Text, ElementName=conText}"
+                                                    />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+            </Grid>
+            
         </Grid>
         
     </Grid>

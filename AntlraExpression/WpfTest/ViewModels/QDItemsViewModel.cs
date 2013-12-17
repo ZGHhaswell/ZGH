@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using C1.WPF;
 using Microsoft.Practices.Prism.Commands;
@@ -19,27 +21,150 @@ namespace WpfTest.ViewModels
     public class QdItemsViewModel : NotificationObject
     {
 
+        public ICommand SelectCommand { get; set; }
+        public ICommand DoubleClickCommand { get; set; }
+        public DelegateCommand<string> SearchIndexCommand { get; set; }
+        public DelegateCommand<string> SearchTextCommand { get; set; }
 
+        /// <summary>
+        /// TreeView Items
+        /// </summary>
         public ObservableCollection<ItemTreeNode> ItemsList { get; set; }
 
-        public ICommand SelectCommand { get; set; }
-
+        /// <summary>
+        /// TreeView SelectedItem
+        /// </summary>
         public SelectableTreeNode SelectedNode { get; set; }
-        public QdItemsViewModel()
-        {
-            //TreeDataInit();
 
-            var dataList = DataProvider.GetTreeData("MyDemo.accdb");
-            RelationShipInit(dataList);
-            RegisterCommands();
-            
-            
-            //MessageBox.Show("QdItemsViewModel");
+
+        public enum SearchMode
+        {
+            Index,
+            Text
         }
 
-        private void RelationShipInit(ObservableCollection<ItemTreeNode> dataList)
+        /// <summary>
+        /// Search Condition
+        /// </summary>
+        private string searchIndexCondition;
+
+        private string searchTextCondition;
+
+        private SearchMode searchMode;
+
+        /// <summary>
+        /// SearchBox Timer
+        /// </summary>
+        private C1.Util.Timer timer;
+
+        /// <summary>
+        /// Current ProjInfoItemList FlexGrid
+        /// </summary>
+        private ListCollectionView selectedProjInfoList;
+        public ListCollectionView SelectedProjInfoList
+        {
+            get { return selectedProjInfoList; }
+            set
+            {
+                selectedProjInfoList = value;
+                RaisePropertyChanged("SelectedProjInfoList");
+            }
+        }
+
+        /// <summary>
+        /// selectedProjInfoItem in the flexgrid
+        /// </summary>
+        private ProjInfoData selectedProjInfoItem;
+        public ProjInfoData SelectedProjInfoItem
+        {
+            get { return selectedProjInfoItem; }
+            set 
+            { 
+                selectedProjInfoItem = value;
+                RaisePropertyChanged("SelectedProjInfoItem");
+            }
+        }
+            
+
+        /// <summary>
+        /// Double Click Event
+        /// </summary>
+        public event Action<ProjInfoData> UserDoubleClickEvent;
+
+        
+
+        public QdItemsViewModel()
+        {
+
+            var dataList = DataProvider.GetTreeData("MyDemo.accdb");
+            var projInfoList = DataProvider.GetProjInfoDatas("MyDemo.accdb");
+
+            RelationShipInit(dataList, projInfoList);
+
+            RegisterCommands();
+
+            SearchBoxInit();
+
+        }
+
+        private void SearchBoxInit()
+        {
+            timer = new C1.Util.Timer();
+            timer.Interval = TimeSpan.FromMilliseconds(200);
+            timer.Tick += TimeTickExecute;
+        }
+
+        private void TimeTickExecute(object sender, EventArgs e)
+        {
+            timer.Stop();
+            if (SelectedProjInfoList != null)
+            {
+                SelectedProjInfoList.Filter = null;
+                SelectedProjInfoList.Filter = searchMode == SearchMode.Index ? 
+                    GetMatchMethod("NumIndex", searchIndexCondition) : GetMatchMethod("ProjInfo", searchTextCondition);
+                //RaisePropertyChanged("SelectedProjInfoList");
+            }
+            
+
+        }
+
+        private Predicate<object> GetMatchMethod(string property, string searchCondition)
+        {
+            return item =>
+            {
+                var searchCon = searchCondition;
+                if (string.IsNullOrEmpty(searchCon))
+                {
+                    return true;
+                }
+                var proInfo = typeof(ProjInfoData).GetProperty(property);
+                var value = proInfo.GetValue(item, null);
+                if (value != null && value.ToString().IndexOf(searchCon, StringComparison.OrdinalIgnoreCase) > -1)
+                {
+                    return true;
+                }
+                return false;
+            };
+        }
+
+        private void RelationShipInit(ObservableCollection<ItemTreeNode> dataList,
+            IEnumerable<ProjInfoData> projDataList)
         {
             ItemsList = new ObservableCollection<ItemTreeNode>();
+
+            //dataList映射初始化
+            foreach (ProjInfoData projInfoData in projDataList)
+            {
+                int index = projInfoData.NumIndex;
+                foreach (var node in dataList)
+                {
+                    if (node.ProjInfoIndexList.Contains(index))
+                    {
+                        node.HostProjDataList.Add(projInfoData);
+                    }
+                }
+            }
+            //关系绑定
             foreach (var node in dataList)
             {
                 if (node.Pid == 0)
@@ -48,16 +173,16 @@ namespace WpfTest.ViewModels
                 }
                 else
                 {
-                    foreach (var node1 in dataList)
+                    foreach (var pnode in dataList)
                     {
-                        if (node1.Id == node.Pid)
+                        if (pnode.Id == node.Pid)
                         {
-                            node1.Children.Add(node);
+                            pnode.Children.Add(node);
                         }
                     }
                 }
             }
-
+            //默认全部展开
             foreach (var node in ItemsList)
             {
                 ExpandAll(node);
@@ -69,7 +194,9 @@ namespace WpfTest.ViewModels
         private void RegisterCommands()
         {
             SelectCommand = new DelegateCommand(SelectCommandExecute);
-              
+            DoubleClickCommand = new DelegateCommand(DoubleClickCommandExecute);
+            SearchIndexCommand = new DelegateCommand<string>(SearchIndexCommandExecute);
+            SearchTextCommand = new DelegateCommand<string>(SearchTextCommandExecute);
         }
 
         private void SelectCommandExecute()
@@ -86,38 +213,53 @@ namespace WpfTest.ViewModels
             var itemnode = SelectedNode as ItemTreeNode;
             if (itemnode != null)
             {
-                MessageBox.Show(itemnode.Name); 
+                SelectedProjInfoList = itemnode.HostProjList;
             }
             
         }
 
-        private void TreeDataInit()
+        private void DoubleClickCommandExecute()
         {
-            ItemsList = new ObservableCollection<ItemTreeNode>();
-            var rootNode = new ItemTreeNode() {Name = "Root"};
-            var childNode = new ItemTreeNode() {Name = "Child"};
-            var child1Node = new ItemTreeNode() {Name = "Child1"};
-            var otherNode = new ItemTreeNode() {Name = "Third"};
-            childNode.Children.Add(otherNode);
-            rootNode.Children.Add(childNode);
-            rootNode.Children.Add(child1Node);
+            RaiseUserDoubleClickEvent();
+        }
 
-            ExpandAll(rootNode);
+        private void RaiseUserDoubleClickEvent()
+        {
+            if (SelectedProjInfoItem == null)
+            {
+                return;
+            }
+            UserDoubleClickEvent.Invoke(SelectedProjInfoItem.Clone() as ProjInfoData);
+        }
 
-            ItemsList.Add(rootNode);
+        
+        
+        private void SearchIndexCommandExecute(string condition)
+        {
+            searchIndexCondition = condition;
+            searchMode = SearchMode.Index;
+            // start ticking
+            timer.Stop();
+            timer.Start();
+        }
+
+        private void SearchTextCommandExecute(string condition)
+        {
+            searchTextCondition = condition;
+            searchMode = SearchMode.Text;
+            // start ticking
+            timer.Stop();
+            timer.Start();
         }
 
         private void ExpandAll(SelectableTreeNode rootNode)
         {
             rootNode.IsExpanded = true;
-
-            if (rootNode.Children != null)
+            foreach (var node in rootNode.Children)
             {
-                foreach (var node in rootNode.Children)
-                {
-                    ExpandAll(node);
-                }
+                ExpandAll(node);
             }
+            
         }
 
         

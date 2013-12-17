@@ -29,7 +29,6 @@ namespace WpfTest
             set { DataContext = value; }
         }
 
-        public event Action<string> ActionEvent;
 
         public MethodsWindow()
         {
